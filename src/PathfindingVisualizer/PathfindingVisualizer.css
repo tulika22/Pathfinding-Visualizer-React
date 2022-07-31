@@ -1,0 +1,32 @@
+.parent{
+    display: flex;
+    flex-direction: column;
+    background-color: bisque;
+    height:100vh;
+    
+}  
+
+.grid{
+    background-color: yellow;
+    margin: 2rem;
+    width: fit-content;
+    align-self: center;
+}
+
+.header{
+    background-color: aqua;
+    top:0;
+    left:0;
+    margin-top: 0;
+    line-height: 2rem;
+}
+
+.InfoBox{
+    background-color: blue;
+    padding:1rem
+    
+}
+
+.InfoBox button{
+    font-size: 1rem;
+}

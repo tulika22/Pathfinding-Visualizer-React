@@ -1,0 +1,20 @@
+.node {
+    width: 1.5rem;
+    height: 1.5rem;
+    outline: 1px solid rgb(175, 216, 248);
+    display: inline-block;
+  }
+
+  .node-start{
+    background-color: red;
+  }
+
+  .node-end{
+    background-color: green;
+  }
+
+  .node-visited {
+    background-color: blueviolet;
+  }
+  
+ 
