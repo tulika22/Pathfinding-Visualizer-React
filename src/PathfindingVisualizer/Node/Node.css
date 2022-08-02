@@ -14,7 +14,14 @@
   }
 
   .node-visited {
-    background-color: blueviolet;
+    background-color: rgb(178, 133, 220);
+  }
+
+  .node-final {
+    background-color: plum;
   }
   
+  .node-wall {
+    background-color: black;
+  }
  

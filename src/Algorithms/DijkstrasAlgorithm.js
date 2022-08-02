@@ -2,7 +2,7 @@
 
 export function dijkstra(grid,start,end) {
 
-    if(!start || !end || start === end)
+    if(start === end)
     {
         return false;
     }
@@ -17,9 +17,13 @@ export function dijkstra(grid,start,end) {
     while(!!unvisitedNodes.length){
         sortNodeByDistance(unvisitedNodes);
         const closestNode=unvisitedNodes.shift();
-        
+        if(closestNode.distance === Infinity)
+            return visitedNodesInOrder;
+
         closestNode.isVisited = true;
-        if(closestNode!== start && closestNode!== end)
+        if(closestNode.isWall)
+            continue;
+        if(closestNode !== start && closestNode!== end)
         visitedNodesInOrder.push(closestNode);
 
         if(closestNode === end)
@@ -67,6 +71,7 @@ export function getNodesInShortestPathOrder(finishNode) {
     const nodesInShortestPathOrder = [];
     let currentNode = finishNode;
     while (currentNode !== null) {
+        
       nodesInShortestPathOrder.unshift(currentNode);
       currentNode = currentNode.previousNode;
     }
