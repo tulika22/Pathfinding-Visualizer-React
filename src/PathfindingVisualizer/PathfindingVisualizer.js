@@ -3,6 +3,9 @@ import Node from './Node/Node';
 import './PathfindingVisualizer.css';
 import { dijkstra ,getNodesInShortestPathOrder} from '../Algorithms/DijkstrasAlgorithm';
 
+
+//Start and End positions
+
 let StartRow=10;
 let StartCol=5;
 let EndRow=15;
