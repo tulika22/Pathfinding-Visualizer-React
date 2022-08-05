@@ -10,6 +10,7 @@ export class Node extends Component {
         isStart,
         isEnd,
         isWall,
+        isWeighted,
         onMouseDown,
         onMouseEnter,
         onMouseUp,
@@ -17,7 +18,7 @@ export class Node extends Component {
     } =this.props;
 
     const extraClassName= isEnd ? 'node-end' :
-    isStart ? 'node-start' : isWall ? 'node-wall': '';
+    isStart ? 'node-start' : isWall ? 'node-wall': isWeighted ? 'node-weighted' :'';
 
 
     return (

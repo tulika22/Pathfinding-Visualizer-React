@@ -1,7 +1,10 @@
-import React, { Component , useState } from 'react'
+import React, { Component, useEffect  } from 'react'
 import Node from './Node/Node';
 import './PathfindingVisualizer.css';
 import { dijkstra ,getNodesInShortestPathOrder} from '../Algorithms/DijkstrasAlgorithm';
+import {BFS} from '../Algorithms/BFS';
+import {DFS} from '../Algorithms/DFS';
+import { keyboard } from '@testing-library/user-event/dist/keyboard';
 
 
 //Start and End positions
@@ -15,14 +18,13 @@ let EndCol=35;
 export class PathfindingVisualizer extends Component {
     
     
-
+    
     constructor(props) {
         super();
         this.state = {
           grid: [],
           mouseIsPressed:false,
-          st:"Wall",
-          
+          st:"Wall"
         };
       }
 
@@ -68,9 +70,12 @@ export class PathfindingVisualizer extends Component {
                 const node = nodesInShortestPathOrder[i];
                 console.log(node.row+" & "+ node.col);
                 document.getElementById(`node-${node.row}-${node.col}`).className =
-      'node node-final';
+      'node node-final'; 
               }, 50 * i);
         }
+        setTimeout(() => {
+            document.getElementById('blocked').style.visibility="hidden";
+        }, 50* nodesInShortestPathOrder.length);
       }
 
      showVisited(visitedNodesInOrder,nodesInShortestPathOrder){
@@ -96,13 +101,57 @@ export class PathfindingVisualizer extends Component {
 
 
     visualizeDijkstra(){
+        document.getElementById('blocked').style.visibility="visible";
+        
+        
+        this.setState({grid:clearVisited(this.state.grid)});
         const {grid} =this.state;
         const start=grid[StartRow][StartCol];
-        console.log(StartRow +" "+ StartCol);
+        
         const end=grid[EndRow][EndCol];
         const visitedNodesInOrder = dijkstra(grid,start,end);
         const nodesInShortestPathOrder = getNodesInShortestPathOrder(end,start);
         this.showVisited(visitedNodesInOrder,nodesInShortestPathOrder);
+        
+    }
+
+    visualizeBFS(){
+        document.getElementById('blocked').style.visibility="visible";
+        this.setState({grid:clearVisited(this.state.grid)});
+        const {grid} =this.state;
+        const start=grid[StartRow][StartCol];
+        console.log("bfs");
+        const end=grid[EndRow][EndCol];
+        const visitedNodesInOrder = BFS(grid,start,end);
+        const nodesInShortestPathOrder = getNodesInShortestPathOrder(end);
+        this.showVisited(visitedNodesInOrder,nodesInShortestPathOrder);
+       
+        
+    }
+
+    visualizeDFS(){
+        document.getElementById('blocked').style.visibility="visible";
+        this.setState({grid:clearVisited(this.state.grid)});
+        const {grid} =this.state;
+        const start=grid[StartRow][StartCol];
+        console.log("dfs");
+        const end=grid[EndRow][EndCol];
+        const visitedNodesInOrder = DFS(grid,start,end);
+        const nodesInShortestPathOrder = getNodesInShortestPathOrder(end);
+        this.showVisited(visitedNodesInOrder,nodesInShortestPathOrder);
+    }
+
+    resetGrid()
+    {
+        StartRow=10;
+        StartCol=5;
+        EndRow=15;
+        EndCol=35;
+        
+        const newGrid=getResetGrid(this.state.grid);
+        this.setState({grid: newGrid});
+        
+
     }
 
     
@@ -113,12 +162,17 @@ export class PathfindingVisualizer extends Component {
 
     return (
       <div className='parent'>
+    <div className='blocked' id='blocked'></div>
+    
       <div className='header'>
         <h1>Pathfinding Visualizer</h1>
       </div>
       <div className='InfoBox'>
-        
-        <button className='algoName' onClick={() => this.visualizeDijkstra()}>Visualize</button>
+      
+        <button className='algoName' onClick={() => this.visualizeDijkstra()}>Dijkstra</button>
+        <button className='algoName' onClick={() => this.visualizeBFS()}>BFS</button>
+        <button className='algoName' onClick={() => this.visualizeDFS()}>DFS</button>
+        <button onClick={()=> this.resetGrid()}> Reset </button>
       </div>
       <div className="grid">
       {grid.map((row, rowIdx) => {
@@ -148,6 +202,8 @@ export class PathfindingVisualizer extends Component {
            
         </div>
       </div>
+     
+      
     )
   }
 }
@@ -164,6 +220,63 @@ const getInitialGrid = () => {
     return grid;
   };
 
+  const clearVisited =(grid) =>{
+    const newGrid=grid.slice();
+    for(let row = 0 ;row < 20; row++){
+        for(let col = 0;col < 50; col++)
+        {
+            const node=newGrid[row][col];
+            if(!node.isStart && !node.isEnd && !node.isWall)
+            {
+                document.getElementById(`node-${row}-${col}`).className =
+          'node';
+            }
+            const newNode={
+                ...node,
+                distance :Infinity,
+                isVisited: false,
+                previousNode: null,
+            
+            }
+            newGrid[row][col]=newNode;
+        }
+    }
+    return newGrid;
+  }
+
+
+  const getResetGrid = (grid) => {
+    const newGrid = grid.slice();
+    for (let row = 0; row < 20; row++) {
+      for (let col = 0; col < 50; col++) {
+        const node=newGrid[row][col];
+        document.getElementById(`node-${row}-${col}`).className =
+          'node';
+        const newNode ={
+            ...node,
+            isStart : row === StartRow && col === StartCol,
+            isEnd :row ===EndRow && col === EndCol,
+            isWall: false,
+            distance :Infinity,
+            isVisited: false,
+            previousNode: null,
+            isWeighted:false,
+        }
+        if (newNode.isStart)
+            document.getElementById(`node-${row}-${col}`).className =
+        'node node-start';
+
+        else if(newNode.isEnd)
+            document.getElementById(`node-${row}-${col}`).className =
+        'node node-end';
+        newGrid[row][col]=newNode;
+      }
+      
+     
+    }
+    return newGrid;
+  };
+
   const createNode = (col, row) => {
     return {
       col,
@@ -173,9 +286,11 @@ const getInitialGrid = () => {
       isWall: false,
       distance :Infinity,
       isVisited: false,
-      previousNode: null
+      previousNode: null,
+      isWeighted:false,
     };
   };
+
 
   const getNewGridWithWallToggled = (grid, row, col,st) => {
     const newGrid = grid.slice();
@@ -220,6 +335,7 @@ const getInitialGrid = () => {
           newGrid[row][col] = newEnd;
 
     }
+    
     else{
         const newNode={
             ...node,

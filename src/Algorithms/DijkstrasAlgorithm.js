@@ -34,7 +34,7 @@ export function dijkstra(grid,start,end) {
 
 function sortNodeByDistance(unvisitedNodes)
 {
-    unvisitedNodes.sort((nodeA,nodeB) => nodeA.distance - nodeB.distance);
+    unvisitedNodes.sort((nodeA,nodeB) => nodeA.distance-nodeB.distance);
 }
 
 function updateNeighbours(node,grid){

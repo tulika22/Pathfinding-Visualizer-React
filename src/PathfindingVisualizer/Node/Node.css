@@ -1,12 +1,20 @@
+@media only screen and (min-width: 1200px) and (min-height: 700px)
+{
 .node {
+    
     width: 1.5rem;
     height: 1.5rem;
+    
     outline: 1px solid rgb(175, 216, 248);
-    display: inline-block;
+    display:inline-table;
+    
   }
-
   .node-start{
     background-color: red;
+  }
+
+  .node-weighted{
+    background-color: rgb(103, 17, 17);
   }
 
   .node-end{
@@ -24,4 +32,75 @@
   .node-wall {
     background-color: black;
   }
- 
+}
+@media only screen and (min-width: 800px) and (max-width:1200px)
+{
+.node {
+    
+    width: 1rem;
+    height: 1.5rem;
+    
+    outline: 1px solid rgb(175, 216, 248);
+    display:inline-table;
+    
+  }
+  .node-start{
+    background-color: red;
+  }
+  .node-weighted{
+    background-color: rgb(103, 17, 17);
+  }
+
+  .node-end{
+    background-color: green;
+  }
+
+  .node-visited {
+    background-color: rgb(178, 133, 220);
+  }
+
+  .node-final {
+    background-color: plum;
+  }
+  
+  .node-wall {
+    background-color: black;
+  }
+}
+
+@media only screen and (max-width: 800px)
+{
+.node {
+    
+    width: 0.5rem;
+    height: 1rem;
+    
+    outline: 1px solid rgb(175, 216, 248);
+    display:inline-table;
+    
+  }
+  .node-start{
+    background-color: red;
+  }
+
+  .node-weighted{
+    background-color: rgb(103, 17, 17);
+  }
+  .node-end{
+    background-color: green;
+  }
+
+  .node-visited {
+    background-color: rgb(178, 133, 220);
+  }
+
+  .node-final {
+    background-color: plum;
+  }
+  
+  .node-wall {
+    background-color: black;
+  }
+}
+
+  
