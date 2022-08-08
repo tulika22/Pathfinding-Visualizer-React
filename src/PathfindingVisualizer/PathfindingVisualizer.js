@@ -86,7 +86,7 @@ export class PathfindingVisualizer extends Component {
         {
             setTimeout(() => {
                 const node = nodesInShortestPathOrder[i];
-                console.log(node.row+" & "+ node.col);
+                
                 if(node.isWeighted)
                     document.getElementById(`node-${node.row}-${node.col}`).className =
       'node node-weighted-final'; 

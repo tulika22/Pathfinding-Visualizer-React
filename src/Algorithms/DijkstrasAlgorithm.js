@@ -34,19 +34,20 @@ export function dijkstra(grid,start,end) {
 
 function sortNodeByDistance(unvisitedNodes)
 {
-    unvisitedNodes.sort((nodeA,nodeB) => (nodeA.distance-nodeB.distance) || (nodeA.row-nodeB.row));
+    unvisitedNodes.sort((nodeA,nodeB) => nodeA.distance-nodeB.distance);
 }
 
 function updateNeighbours(node,grid){
     const neighbours=getNeighbours(node,grid);
     for(const neighbour of neighbours)
     {
-        if(neighbour.isWeighted)
-            neighbour.distance=node.distance+50;
-        else
-            neighbour.distance=node.distance+1;
+        const wt=neighbour.isWeighted?10:0;
+        if(neighbour.distance > node.distance+wt)
+        {
+            neighbour.distance=node.distance+wt;
+            neighbour.previousNode=node;
+        }
         
-        neighbour.previousNode=node;
     }
 
 }

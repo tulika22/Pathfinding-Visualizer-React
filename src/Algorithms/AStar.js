@@ -32,15 +32,15 @@ export function AStar(grid,start,end) {
 
 function setHeuristics(currentNode,endNode)
 {
-    currentNode.heuristics=abs(currentNode.row - endNode.row) + abs(currentNode.col - endNode.col);
+    currentNode.heuristics=Math.abs(currentNode.row - endNode.row) + Math.abs(currentNode.col - endNode.col);
 }
 
-function abs(x){
+/*function abs(x){
     if(x<0)
         return (x*(-1));
     else
         return x;
-}
+}*/
 
 
 
@@ -49,16 +49,18 @@ function sortNodeByHeuristics(unvisitedNodes)
     unvisitedNodes.sort((nodeA,nodeB) => (nodeA.distance+nodeA.heuristics)-(nodeB.distance+nodeB.heuristics));
 }
 
-function updateNeighbours(node,grid,end){
+function updateNeighbours(node,grid,endNode){
     const neighbours=getNeighbours(node,grid);
     for(const neighbour of neighbours)
     {
-        if(neighbour.isWeighted)
-            neighbour.distance=node.distance+50;
-        else
-            neighbour.distance=node.distance+1;
-        setHeuristics(neighbour,end);
-        neighbour.previousNode=node;
+        const wt=neighbour.isWeighted?10:0;
+        if(neighbour.distance >= node.distance+wt)
+        {
+            neighbour.distance=node.distance+wt;
+            neighbour.previousNode=node;
+            setHeuristics(neighbour,endNode);
+        }
+        
     }
 
 }
