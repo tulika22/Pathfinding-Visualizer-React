@@ -32,6 +32,10 @@
   .node-wall {
     background-color: black;
   }
+
+  .node-weighted-visited{
+    background-color: rgb(228, 113, 13);
+  }
 }
 @media only screen and (min-width: 800px) and (max-width:1200px)
 {
@@ -66,6 +70,14 @@
   .node-wall {
     background-color: black;
   }
+
+  .node-weighted-final{
+    background-color: blueviolet;
+  }
+  .node-weighted-visited{
+    background-color: rgb(228, 113, 13);
+  }
+
 }
 
 @media only screen and (max-width: 800px)
@@ -82,10 +94,18 @@
   .node-start{
     background-color: red;
   }
+  .node-weighted-final{
+    background-color: blueviolet;
+  }
+
+  .node-weighted-visited{
+    background-color: rgb(228, 113, 13);
+  }
 
   .node-weighted{
     background-color: rgb(103, 17, 17);
   }
+
   .node-end{
     background-color: green;
   }
@@ -100,6 +120,9 @@
   
   .node-wall {
     background-color: black;
+  }
+  .node-weighted-final{
+    background-color: blueviolet;
   }
 }
 

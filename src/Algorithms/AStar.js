@@ -1,6 +1,4 @@
-
-
-export function dijkstra(grid,start,end) {
+export function AStar(grid,start,end) {
 
     if(start === end)
     {
@@ -12,10 +10,10 @@ export function dijkstra(grid,start,end) {
 
     start.distance=0;
     const unvisitedNodes=getAllNodes(grid) ;
-      
+    setHeuristics(start,end); 
 
     while(!!unvisitedNodes.length){
-        sortNodeByDistance(unvisitedNodes);
+        sortNodeByHeuristics(unvisitedNodes);
         const closestNode=unvisitedNodes.shift();
         if(closestNode.distance === Infinity)
             return visitedNodesInOrder;
@@ -28,16 +26,30 @@ export function dijkstra(grid,start,end) {
 
         if(closestNode === end)
             return visitedNodesInOrder;
-        updateNeighbours(closestNode,grid);
+        updateNeighbours(closestNode,grid,end);
     }
 }
 
-function sortNodeByDistance(unvisitedNodes)
+function setHeuristics(currentNode,endNode)
 {
-    unvisitedNodes.sort((nodeA,nodeB) => (nodeA.distance-nodeB.distance) || (nodeA.row-nodeB.row));
+    currentNode.heuristics=abs(currentNode.row - endNode.row) + abs(currentNode.col - endNode.col);
 }
 
-function updateNeighbours(node,grid){
+function abs(x){
+    if(x<0)
+        return (x*(-1));
+    else
+        return x;
+}
+
+
+
+function sortNodeByHeuristics(unvisitedNodes)
+{
+    unvisitedNodes.sort((nodeA,nodeB) => (nodeA.distance+nodeA.heuristics)-(nodeB.distance+nodeB.heuristics));
+}
+
+function updateNeighbours(node,grid,end){
     const neighbours=getNeighbours(node,grid);
     for(const neighbour of neighbours)
     {
@@ -45,7 +57,7 @@ function updateNeighbours(node,grid){
             neighbour.distance=node.distance+50;
         else
             neighbour.distance=node.distance+1;
-        
+        setHeuristics(neighbour,end);
         neighbour.previousNode=node;
     }
 
@@ -70,15 +82,3 @@ function getAllNodes(grid) {
     }
     return nodes;
   }
-
-export function getNodesInShortestPathOrder(finishNode) {
-    const nodesInShortestPathOrder = [];
-    let currentNode = finishNode;
-    while (currentNode !== null) {
-        
-      nodesInShortestPathOrder.unshift(currentNode);
-      currentNode = currentNode.previousNode;
-    }
-    return nodesInShortestPathOrder;
-  }
-  

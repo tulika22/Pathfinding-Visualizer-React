@@ -1,10 +1,10 @@
-import React, { Component, useEffect  } from 'react'
+import React, { Component } from 'react'
 import Node from './Node/Node';
 import './PathfindingVisualizer.css';
 import { dijkstra ,getNodesInShortestPathOrder} from '../Algorithms/DijkstrasAlgorithm';
 import {BFS} from '../Algorithms/BFS';
 import {DFS} from '../Algorithms/DFS';
-import { keyboard } from '@testing-library/user-event/dist/keyboard';
+import {AStar} from '../Algorithms/AStar';
 
 
 //Start and End positions
@@ -33,8 +33,23 @@ export class PathfindingVisualizer extends Component {
         this.setState({grid});
       }
 
+
       handleMouseDown(row, col) {
-        var st="Wall";
+        document.addEventListener("keypress",(event) => {
+            
+            if(event.key==="W" || event.key==='w') 
+                {
+                    if(this.state.st==="Wall")
+                     {
+                        this.setState({st:"Weighted"});
+                     }
+                     else{
+                        this.setState({st:"Wall"});
+                     }
+                }
+        });
+        
+        let st=this.state.st;
         if(row === StartRow && col === StartCol)
         {
             st="Start";
@@ -43,7 +58,7 @@ export class PathfindingVisualizer extends Component {
         {
             st="End";
         }
-        this.setState({st:st});
+        console.log(st);
         const newGrid = getNewGridWithWallToggled(this.state.grid, row, col, st);
         this.setState({grid: newGrid, mouseIsPressed: true, st: st });
       }
@@ -51,13 +66,16 @@ export class PathfindingVisualizer extends Component {
       handleMouseEnter(row, col) {
         if (!this.state.mouseIsPressed) 
         return;
+        
         const newGrid = getNewGridWithWallToggled(this.state.grid, row, col, this.state.st);
         this.setState({grid: newGrid});
       }
 
       handleMouseUp() {
-
-        this.setState({ mouseIsPressed: false , st:"Wall"});
+        if(this.state.st !== "Weighted")
+            this.setState({ mouseIsPressed: false , st:"Wall"});
+        else
+        this.setState({ mouseIsPressed: false , st:"Weighted"});
       }
 
 
@@ -69,8 +87,12 @@ export class PathfindingVisualizer extends Component {
             setTimeout(() => {
                 const node = nodesInShortestPathOrder[i];
                 console.log(node.row+" & "+ node.col);
-                document.getElementById(`node-${node.row}-${node.col}`).className =
-      'node node-final'; 
+                if(node.isWeighted)
+                    document.getElementById(`node-${node.row}-${node.col}`).className =
+      'node node-weighted-final'; 
+                else
+                    document.getElementById(`node-${node.row}-${node.col}`).className =
+                'node node-final';
               }, 50 * i);
         }
         setTimeout(() => {
@@ -89,8 +111,12 @@ export class PathfindingVisualizer extends Component {
             else{
                 setTimeout(() => {
                     const node = visitedNodesInOrder[i];
+                    if(node.isWeighted)
+                        document.getElementById(`node-${node.row}-${node.col}`).className =
+          'node node-weighted-visited';
+                    else
                     document.getElementById(`node-${node.row}-${node.col}`).className =
-          'node node-visited';
+                    'node node-visited';
                   }, 10 * i);
             }
 
@@ -104,7 +130,7 @@ export class PathfindingVisualizer extends Component {
         document.getElementById('blocked').style.visibility="visible";
         
         
-        this.setState({grid:clearVisited(this.state.grid)});
+        this.setState({grid:clearVisited(this.state.grid, true)});
         const {grid} =this.state;
         const start=grid[StartRow][StartCol];
         
@@ -117,7 +143,7 @@ export class PathfindingVisualizer extends Component {
 
     visualizeBFS(){
         document.getElementById('blocked').style.visibility="visible";
-        this.setState({grid:clearVisited(this.state.grid)});
+        this.setState({grid:clearVisited(this.state.grid, false)});
         const {grid} =this.state;
         const start=grid[StartRow][StartCol];
         console.log("bfs");
@@ -131,7 +157,7 @@ export class PathfindingVisualizer extends Component {
 
     visualizeDFS(){
         document.getElementById('blocked').style.visibility="visible";
-        this.setState({grid:clearVisited(this.state.grid)});
+        this.setState({grid:clearVisited(this.state.grid, false)});
         const {grid} =this.state;
         const start=grid[StartRow][StartCol];
         console.log("dfs");
@@ -141,6 +167,18 @@ export class PathfindingVisualizer extends Component {
         this.showVisited(visitedNodesInOrder,nodesInShortestPathOrder);
     }
 
+    visualizeAStar(){
+      document.getElementById('blocked').style.visibility="visible";
+      this.setState({grid:clearVisited(this.state.grid, true)});
+      const {grid} =this.state;
+      const start=grid[StartRow][StartCol];
+      console.log("A*");
+      const end=grid[EndRow][EndCol];
+      const visitedNodesInOrder = AStar(grid,start,end);
+      const nodesInShortestPathOrder = getNodesInShortestPathOrder(end);
+      this.showVisited(visitedNodesInOrder,nodesInShortestPathOrder);
+  }
+
     resetGrid()
     {
         StartRow=10;
@@ -149,8 +187,7 @@ export class PathfindingVisualizer extends Component {
         EndCol=35;
         
         const newGrid=getResetGrid(this.state.grid);
-        this.setState({grid: newGrid});
-        
+        this.setState({grid: newGrid,st:"Wall"});
 
     }
 
@@ -170,6 +207,7 @@ export class PathfindingVisualizer extends Component {
       <div className='InfoBox'>
       
         <button className='algoName' onClick={() => this.visualizeDijkstra()}>Dijkstra</button>
+        <button className='algoName' onClick={() =>this.visualizeAStar()}>A*</button>
         <button className='algoName' onClick={() => this.visualizeBFS()}>BFS</button>
         <button className='algoName' onClick={() => this.visualizeDFS()}>DFS</button>
         <button onClick={()=> this.resetGrid()}> Reset </button>
@@ -179,7 +217,7 @@ export class PathfindingVisualizer extends Component {
             return (
               <div key={rowIdx}>
                 {row.map((node, nodeIdx) => {
-                  const {col,row,isStart,isEnd,isWall} = node;
+                  const {col,row,isStart,isEnd,isWall,isWeighted} = node;
                   return (
                     <Node
                       key={nodeIdx}
@@ -188,11 +226,10 @@ export class PathfindingVisualizer extends Component {
                       isStart={isStart}
                       isEnd={isEnd}
                       isWall={isWall}
+                      isWeighted={isWeighted}
                       mouseIsPressed={this.mouseIsPressed}
                       onMouseDown={(row, col) => this.handleMouseDown(row, col)}
-                      onMouseEnter={(row, col) =>
-                        this.handleMouseEnter(row, col)
-                      }
+                      onMouseEnter={(row, col) => this.handleMouseEnter(row, col)}
                       onMouseUp={() => this.handleMouseUp()}></Node>
                   );
                 })}
@@ -220,22 +257,29 @@ const getInitialGrid = () => {
     return grid;
   };
 
-  const clearVisited =(grid) =>{
+  const clearVisited =(grid, wt) =>{
     const newGrid=grid.slice();
     for(let row = 0 ;row < 20; row++){
         for(let col = 0;col < 50; col++)
         {
             const node=newGrid[row][col];
-            if(!node.isStart && !node.isEnd && !node.isWall)
+            if(!node.isStart && !node.isEnd && !node.isWall && !node.isWeighted)
             {
                 document.getElementById(`node-${row}-${col}`).className =
           'node';
             }
+            if(node.isWeighted)
+            {
+              document.getElementById(`node-${row}-${col}`).className =
+          'node node-weighted';
+            }
             const newNode={
                 ...node,
+                isWeighted: node.isWeighted && wt,
                 distance :Infinity,
                 isVisited: false,
                 previousNode: null,
+                heuristics:Infinity,
             
             }
             newGrid[row][col]=newNode;
@@ -261,6 +305,7 @@ const getInitialGrid = () => {
             isVisited: false,
             previousNode: null,
             isWeighted:false,
+            heuristics:Infinity,
         }
         if (newNode.isStart)
             document.getElementById(`node-${row}-${col}`).className =
@@ -288,6 +333,7 @@ const getInitialGrid = () => {
       isVisited: false,
       previousNode: null,
       isWeighted:false,
+      heuristics: Infinity,
     };
   };
 
@@ -295,22 +341,23 @@ const getInitialGrid = () => {
   const getNewGridWithWallToggled = (grid, row, col,st) => {
     const newGrid = grid.slice();
     const node = newGrid[row][col];
-    
+
     if(st === "Start"){
         const start=newGrid[StartRow][StartCol];
         const oldStart = {
             ...start,
             isStart: false,
             previousNode:null,
-            distance:Infinity
+            distance:Infinity,
+            heuristics:Infinity,
         }
         newGrid[StartRow][StartCol] = oldStart;
         const newStart = {
             ...node,
             isStart: true,
             previousNode: null,
-            distance:Infinity
-            
+            distance:Infinity,
+            heuristics:Infinity
             
           };
           StartRow=row;
@@ -335,10 +382,23 @@ const getInitialGrid = () => {
           newGrid[row][col] = newEnd;
 
     }
-    
-    else{
+    else if(st === "Weighted")
+    {
+        
         const newNode={
             ...node,
+            isWall:false,
+            isWeighted:!node.isWeighted,
+        };
+        newGrid[row][col] = newNode;
+        
+    }
+    
+    else{
+        
+        const newNode={
+            ...node,
+            isWeighted:false,
             isWall: !node.isWall,
         };
         newGrid[row][col] = newNode;
