@@ -14,7 +14,7 @@ import { AStar } from "../Algorithms/AStar";
 let StartRow = 10;
 let StartCol = 5;
 let EndRow = 15;
-let EndCol = 35;
+let EndCol = 25;
 
 export class PathfindingVisualizer extends Component {
   constructor(props) {
@@ -163,7 +163,7 @@ export class PathfindingVisualizer extends Component {
     StartRow = 10;
     StartCol = 5;
     EndRow = 15;
-    EndCol = 35;
+    EndCol = 25;
 
     const newGrid = getResetGrid(this.state.grid);
     this.setState({ grid: newGrid, st: "Wall" });
@@ -171,6 +171,8 @@ export class PathfindingVisualizer extends Component {
 
   render() {
     const { grid } = this.state;
+    const w = window.innerWidth;
+    console.log(w);
 
     return (
       <div className="parent">
@@ -231,7 +233,7 @@ const getInitialGrid = () => {
   const grid = [];
   for (let row = 0; row < 20; row++) {
     const currentRow = [];
-    for (let col = 0; col < 50; col++) {
+    for (let col = 0; col < 35; col++) {
       currentRow.push(createNode(col, row));
     }
     grid.push(currentRow);
@@ -242,7 +244,7 @@ const getInitialGrid = () => {
 const clearVisited = (grid, wt) => {
   const newGrid = grid.slice();
   for (let row = 0; row < 20; row++) {
-    for (let col = 0; col < 50; col++) {
+    for (let col = 0; col < 35; col++) {
       const node = newGrid[row][col];
       if (!node.isStart && !node.isEnd && !node.isWall && !node.isWeighted) {
         document.getElementById(`node-${row}-${col}`).className = "node";
@@ -268,7 +270,7 @@ const clearVisited = (grid, wt) => {
 const getResetGrid = (grid) => {
   const newGrid = grid.slice();
   for (let row = 0; row < 20; row++) {
-    for (let col = 0; col < 50; col++) {
+    for (let col = 0; col < 35; col++) {
       const node = newGrid[row][col];
       document.getElementById(`node-${row}-${col}`).className = "node";
       const newNode = {

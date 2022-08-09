@@ -1,172 +1,50 @@
-@media only screen and (min-width: 1200px){
-
-    .parent{
-        display: flex;
-        flex-direction: column;
-        background-color: bisque;
-        height:max-content;
-        min-height: 100vh;
-        width: max-content;
-        min-width: 100%;
-
-        
-    }  
-
-    .grid{
-        background-color: yellow;
-        margin: 2rem;
-        margin-top: 3rem;
-        width:fit-content;
-        align-self: center;
-        line-height: 0%;
-        outline: 0.2rem solid black;
-        white-space: nowrap;
-        overflow-x: auto;
-    }
-
-    .header{
-        background-color: aqua;
-        top:0;
-        left:0;
-        margin-top: 0;
-        line-height: 2rem;
-    }
-
-    .InfoBox{
-        background-color: blue;
-        padding:1rem;
-        
-    }
-
-    .InfoBox button{
-        font-size: 1.75rem;
-        margin:0 1rem;
-    }
-
-    .blocked{
-        top:0;
-        left:0;
-        background-color: transparent;
-        opacity: 0.3;
-        position: fixed;
-        height: 100%;
-        width: 100%;
-        visibility: hidden;
-    }
-      
+.parent {
+  display: flex;
+  flex-direction: column;
+  background-color: bisque;
+  height: max-content;
+  min-height: 100vh;
+  width: max-content;
+  min-width: 100%;
 }
-@media only screen and (min-width: 500px) and (max-width:1200px){
-    .parent{
-        display: flex;
-        flex-direction: column;
-        background-color: bisque;
-        height:max-content;
-        min-height: 100vh;
-        width: max-content;
-        min-width: 100%;
-    }  
 
-    .grid{
-        background-color: yellow;
-        margin: 1rem;
-        margin-top: 3rem;
-        width:fit-content;
-        align-self: center;
-        line-height: 0%;
-        outline: 0.1rem solid black;
-        white-space: nowrap;
-        overflow-x: auto;
-    }
-
-    .header{
-        background-color: aqua;
-        top:0;
-        left:0;
-        margin-top: 0;
-        line-height: 1.5rem;
-    }
-
-    .InfoBox{
-        
-        
-        background-color: blue;
-        padding:1rem;
-        
-    }
-
-    .InfoBox button{
-        font-size: 1.5rem;
-        margin:0 0.75rem;
-    }
-
-    .blocked{
-        top:0;
-        left:0;
-        background-color: transparent;
-        opacity: 0.3;
-        position: fixed;
-        height: 100%;
-        width: 100%;
-        visibility: hidden;
-    }
-        
-        
-    
-
+.grid {
+  background-color: yellow;
+  margin: 2rem;
+  margin-top: 3rem;
+  width: fit-content;
+  align-self: center;
+  line-height: 0%;
+  outline: 0.2vw solid black;
+  white-space: nowrap;
+  overflow-x: auto;
 }
-@media only screen and (max-width: 500px){
-    .parent{
-        display: flex;
-        flex-direction: column;
-        background-color: bisque;
-        height:max-content;
-        min-height: 100vh;
-        width: max-content;
-        min-width: 100%;
 
-        
-    }  
+.header {
+  background-color: aqua;
+  top: 0;
+  left: 0;
+  margin-top: 0;
+  line-height: 2rem;
+}
 
-    .grid{
-        background-color: yellow;
-        margin: 1rem;
-        margin-top: 3rem;
-        width:fit-content;
-        align-self: center;
-        line-height: 0%;
-        outline: 0.1rem solid black;
-        white-space: nowrap;
-        overflow-x: auto;
-    }
+.InfoBox {
+  background-color: blue;
+  padding: 1rem;
+}
 
-    .header{
-        background-color: aqua;
-        top:0;
-        left:0;
-        margin-top: 0;
-        line-height: 1.5rem;
-    }
+.InfoBox button {
+  font-size: 1.75rem;
+  margin: 0 1rem;
+}
 
-    .InfoBox{
-        background-color: blue;
-        padding:1rem;
-        
-    }
-
-    .InfoBox button{
-        font-size: 1rem;
-        margin:0 0.5rem;
-    }
-
-    .blocked{
-        top:0;
-        left:0;
-        background-color: transparent;
-        opacity: 0.3;
-        position: fixed;
-        height: 100%;
-        width: 100%;
-        visibility: hidden;
-    }
-      
+.blocked {
+  top: 0;
+  left: 0;
+  background-color: transparent;
+  opacity: 0.3;
+  position: fixed;
+  height: 100%;
+  width: 100%;
+  visibility: hidden;
 }
