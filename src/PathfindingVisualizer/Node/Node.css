@@ -2,7 +2,7 @@
   width: 2.5vw;
   height: 2.5vw;
 
-  outline: 1px solid rgb(175, 216, 248);
+  outline: 0.5px solid rgb(178, 217, 247);
   display: inline-table;
 }
 .node-start {
@@ -13,36 +13,51 @@
 }
 
 .node-weighted {
-  background-image: url("../../Images/angryDog1.png");
-  background-size: cover;
+  background-image: url("../../Images/bone.png");
+  background-size: 2.5vw;
+  background-repeat: no-repeat;
   background-position: center;
 }
 
 .node-end {
-  background-color: green;
-  background-image: url("../../Images/dogBowl.png");
-  background-size: cover;
+  background-color: rgb(66, 201, 66);
+  background-image: url("../../Images/house.png");
+  background-size: 2.5vw;
   background-position: center;
 }
 
 .node-visited {
-  background-color: rgb(178, 133, 220);
+  background-color: #afb4ff;
+  /* #f29191;
+  /*#cab8ff;
+
+  /*#b2a4ff;
+  /*rgb(178, 133, 220);*/
 }
 
 .node-final {
-  background-color: plum;
+  background-color: #f1ef64;
+  /*#fcffa6;*/
 }
 
 .node-wall {
-  background-image: url("../../Images/angryDog2.png");
+  /*background-image: url("../../Images/wall2.png");
   background-size: cover;
-  background-position: center;
+  background-position: center;*/
+  background-color: #495c83;
 }
 
 .node-weighted-visited {
-  background-color: rgb(228, 113, 13);
+  background-image: url("../../Images/bone.png");
+  background-size: 2.5vw;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-color: #afb4ff;
 }
-
 .node-weighted-final {
-  background-color: blueviolet;
+  background-image: url("../../Images/bone.png");
+  background-size: 2.5vw;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-color: #f1ef64;
 }

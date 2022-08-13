@@ -249,7 +249,7 @@ const clearVisited = (grid, wt) => {
       if (!node.isStart && !node.isEnd && !node.isWall && !node.isWeighted) {
         document.getElementById(`node-${row}-${col}`).className = "node";
       }
-      if (node.isWeighted) {
+      if (!node.isStart && !node.isEnd && node.isWeighted) {
         document.getElementById(`node-${row}-${col}`).className =
           "node node-weighted";
       }
