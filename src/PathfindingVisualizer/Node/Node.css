@@ -13,7 +13,7 @@
 }
 
 .node-weighted {
-  background-image: url("../../Images/bone.png");
+  background-image: url("../../Images/bone3.png");
   background-size: 2.5vw;
   background-repeat: no-repeat;
   background-position: center;
@@ -48,14 +48,14 @@
 }
 
 .node-weighted-visited {
-  background-image: url("../../Images/bone.png");
+  background-image: url("../../Images/bone3.png");
   background-size: 2.5vw;
   background-repeat: no-repeat;
   background-position: center;
   background-color: #afb4ff;
 }
 .node-weighted-final {
-  background-image: url("../../Images/bone.png");
+  background-image: url("../../Images/bone3.png");
   background-size: 2.5vw;
   background-repeat: no-repeat;
   background-position: center;
