@@ -27,7 +27,10 @@
 }
 
 .node-visited {
-  background-color: #afb4ff;
+  /*background-image: url("https://i.pinimg.com/originals/6d/87/3c/6d873c9d4e0b451c48f12426cac7f244.jpg");
+  background-position: center;
+  background-size: cover;*/
+  background-color: #d184f8db;
   /* #f29191;
   /*#cab8ff;
 
@@ -36,26 +39,32 @@
 }
 
 .node-final {
+  /*background-image: url("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQEbw5qY_SQwkIjTvkQDj3assFZDZpk23CDaQ&usqp=CAU");
+  /*https://previews.123rf.com/images/levstudio/levstudio1910/levstudio191000097/132295014-brick-pavement-tile-top-view-urban-texture-as-background-stone-pavement-texture-granite-cobblestoned.jpg");
+  background-size: cover;
+  background-position: center;*/
   background-color: #f1ef64;
   /*#fcffa6;*/
 }
 
 .node-wall {
-  /*background-image: url("../../Images/wall2.png");
+  background-image: url("../../Images/wall1.png");
   background-size: cover;
-  background-position: center;*/
-  background-color: #495c83;
+  background-position: center;
+  /*background-color: #495c83;*/
 }
 
 .node-weighted-visited {
-  background-image: url("../../Images/bone3.png");
+  background-image: url("https://i.pinimg.com/originals/6d/87/3c/6d873c9d4e0b451c48f12426cac7f244.jpg");
+  content: url("../../Images/bone3.png");
   background-size: 2.5vw;
   background-repeat: no-repeat;
   background-position: center;
   background-color: #afb4ff;
 }
 .node-weighted-final {
-  background-image: url("../../Images/bone3.png");
+  background-image: url("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQEbw5qY_SQwkIjTvkQDj3assFZDZpk23CDaQ&usqp=CAU");
+  content: url("../../Images/bone3.png");
   background-size: 2.5vw;
   background-repeat: no-repeat;
   background-position: center;

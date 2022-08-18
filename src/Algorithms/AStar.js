@@ -81,7 +81,7 @@ function updateNeighbours(node, grid, endNode) {
   const neighbours = getNeighbours(node, grid);
   for (const neighbour of neighbours) {
     setHeuristics(neighbour, endNode);
-    const wt = neighbour.isWeighted ? 5 : 1;
+    const wt = neighbour.isWeighted ? 10 : 1;
     if (neighbour.distance > node.distance + wt) {
       neighbour.distance = node.distance + wt;
       neighbour.previousNode = node;

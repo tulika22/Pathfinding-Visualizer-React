@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import "./Node.css";
+import "./Node1.css";
 
 export class Node extends Component {
   render() {
@@ -32,7 +32,6 @@ export class Node extends Component {
         onMouseDown={() => onMouseDown(row, col)}
         onMouseEnter={() => onMouseEnter(row, col)}
         onMouseUp={() => onMouseUp()}
-        
       ></div>
     );
   }

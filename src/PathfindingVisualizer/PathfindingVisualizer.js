@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import Node from "./Node/Node";
-import "./PathfindingVisualizer.css";
+import "./PathfindingVisualizer1.css";
 import {
   dijkstra,
   getNodesInShortestPathOrder,
@@ -78,7 +78,7 @@ export class PathfindingVisualizer extends Component {
 
         if (node.isWeighted)
           document.getElementById(`node-${node.row}-${node.col}`).className =
-            "node node-weighted-final";
+            "node node-weighted node-final";
         else
           document.getElementById(`node-${node.row}-${node.col}`).className =
             "node node-final";
@@ -101,7 +101,7 @@ export class PathfindingVisualizer extends Component {
           const node = visitedNodesInOrder[i];
           if (node.isWeighted)
             document.getElementById(`node-${node.row}-${node.col}`).className =
-              "node node-weighted-visited";
+              "node node-weighted node-visited";
           else
             document.getElementById(`node-${node.row}-${node.col}`).className =
               "node node-visited";
